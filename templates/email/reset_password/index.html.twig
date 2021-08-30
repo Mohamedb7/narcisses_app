@@ -1,0 +1,8 @@
+{% extends 'email/base.html.twig' %}
+
+{% block title %}{% endblock %}
+
+{% block body %}
+    bonjour {{ user.firstname }} {{ user.lastname }},
+    <a href="{{ url('reset_password', {'confirmationToken': user.confirmationToken}) }}">ici</a>
+{% endblock %}

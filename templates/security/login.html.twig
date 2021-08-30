@@ -1,0 +1,62 @@
+{% extends 'auth.base.html.twig' %}
+
+{% block title %}Log in!{% endblock %}
+
+{% block body %}
+    <p class="login-box-msg">Authentifiez-vous pour démarrer votre session</p>
+
+    <form method="post">
+        {% if error %}
+            <div class="alert alert-danger">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
+        {% endif %}
+        {% for label, messages in app.flashes %}
+            {% for message in messages %}
+                <div class="alert alert-{{ label }}">
+                    {{ message }}
+                </div>
+            {% endfor %}
+        {% endfor %}
+
+        <div class="input-group mb-3">
+            <input type="email" value="{{ last_username }}" name="username" class="form-control" placeholder="Email"
+                   autocomplete="username" required autofocus/>
+            <div class="input-group-append">
+                <div class="input-group-text">
+                    <span class="fas fa-envelope"></span>
+                </div>
+            </div>
+        </div>
+
+        <div class="input-group mb-3">
+            <input type="password" name="password" class="form-control" autocomplete="current-password"
+                   placeholder="Mot de passe" required>
+            <div class="input-group-append">
+                <div class="input-group-text">
+                    <span class="fas fa-lock"></span>
+                </div>
+            </div>
+        </div>
+
+        <input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
+
+        <div class="row">
+            <div class="col-7">
+                <div class="icheck-primary">
+                    <input type="checkbox" name="_remember_me" id="remember">
+                    <label for="remember">
+                        Se rappeler de moi
+                    </label>
+                </div>
+            </div>
+
+            <div class="col-5">
+                <button type="submit" class="btn btn-primary btn-block">Connexion</button>
+            </div>
+        </div>
+
+    </form>
+
+    <p class="mb-1">
+        <a href="{{ path('reset_request') }}">Mot de passe oublié</a>
+    </p>
+{% endblock %}
